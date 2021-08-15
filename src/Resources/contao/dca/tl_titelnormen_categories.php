@@ -37,15 +37,17 @@ $GLOBALS['TL_DCA']['tl_titelnormen_categories'] = array
 	(
 		'sorting' => array
 		(
-			'mode'                    => 2,
-			'fields'                  => array('category'),
+			'mode'                    => 1,
+			'fields'                  => array('sorting'),
 			'flag'                    => 1,
-			'panelLayout'             => 'myfilter;filter,sort;search,limit',
+			'panelLayout'             => 'filter,sort;search,limit',
+			'disableGrouping'         => true,
 		),
 		'label' => array
 		(
-			'fields'                  => array('category'),
+			'fields'                  => array('name', 'kurzname', 'sorting'),
 			'format'                  => '%s',
+			'showColumns'             => true,
 		),
 		'global_operations' => array
 		(
@@ -72,19 +74,11 @@ $GLOBALS['TL_DCA']['tl_titelnormen_categories'] = array
 				'href'                => 'act=edit',
 				'icon'                => 'edit.gif',
 			),
-			/*'copy' => array
-			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_titelnormen_categories']['copy'],
-				'href'                => 'act=copy',
-				'icon'                => 'copy.gif',
+			'cut' => array(
+				'label'               => &$GLOBALS['TL_LANG']['tl_titelnormen_categories']['cut'],
+				'href'                => 'act=paste&amp;mode=cut',
+				'icon'                => 'cut.gif',
 			),
-			'delete' => array
-			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_titelnormen_categories']['delete'],
-				'href'                => 'act=delete',
-				'icon'                => 'delete.gif',
-				'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"',
-			),*/
 			'toggle' => array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_titelnormen_categories']['toggle'],
@@ -104,7 +98,7 @@ $GLOBALS['TL_DCA']['tl_titelnormen_categories'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'default'                     => '{name_legend},category;{active_legend},active'
+		'default'                     => '{name_legend},name,kurzname;{sort_legend},sorting;{publish_legend},published'
 	),
 
 	// Fields
@@ -114,22 +108,37 @@ $GLOBALS['TL_DCA']['tl_titelnormen_categories'] = array
 		(
 			'sql'                     => "int(10) unsigned NOT NULL auto_increment"
 		),
+		'sorting' => array(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_titelnormen_categories']['sorting'],
+			'inputType'               => 'text',
+			'eval'                    => array('mandatory'=>true, 'maxlength'=>10, 'tl_class'=>'w50'),
+			'sql'                     => "int(10) unsigned NOT NULL default '0'",
+		),
 		'tstamp' => array
 		(
 			'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
-		'category' => array
+		'name' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_titelnormen_categories']['category'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_titelnormen_categories']['name'],
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'text',
-			'eval'                    => array('mandatory'=>false, 'maxlength'=>64, 'tl_class'=>'long'),
-			'sql'                     => "varchar(64) NOT NULL default ''"
+			'eval'                    => array('mandatory'=>false, 'maxlength'=>255, 'tl_class'=>'long'),
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
-		'active' => array
+		'kurzname' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_titelnormen_categories']['active'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_titelnormen_categories']['kurzname'],
+			'exclude'                 => true,
+			'search'                  => true,
+			'inputType'               => 'text',
+			'eval'                    => array('mandatory'=>false, 'maxlength'=>10, 'tl_class'=>'w50'),
+			'sql'                     => "varchar(10) NOT NULL default ''"
+		),
+		'published' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_titelnormen_categories']['published'],
 			'inputType'               => 'checkbox',
 			'exclude'                 => true,
 			'default'                 => 1,
@@ -182,14 +191,14 @@ class tl_titelnormen_categories extends Backend
 		}
 		
 		// Check permissions AFTER checking the tid, so hacking attempts are logged
-		if (!$this->User->isAdmin && !$this->User->hasAccess('tl_titelnormen_categories::active', 'alexf'))
+		if (!$this->User->isAdmin && !$this->User->hasAccess('tl_titelnormen_categories::published', 'alexf'))
 		{
 			return '';
 		}
 		
 		$href .= '&amp;id='.$this->Input->get('id').'&amp;tid='.$row['id'].'&amp;state='.$row[''];
 		
-		if (!$row['active'])
+		if (!$row['published'])
 		{
 			$icon = 'invisible.gif';
 		}
@@ -205,7 +214,7 @@ class tl_titelnormen_categories extends Backend
 	public function toggleVisibility($intId, $blnPublished)
 	{
 		// Check permissions to publish
-		if (!$this->User->isAdmin && !$this->User->hasAccess('tl_titelnormen_categories::active', 'alexf'))
+		if (!$this->User->isAdmin && !$this->User->hasAccess('tl_titelnormen_categories::published', 'alexf'))
 		{
 			$this->log('Not enough permissions to show/hide record ID "'.$intId.'"', 'tl_titelnormen_categories toggleVisibility', TL_ERROR);
 			$this->redirect('contao/main.php?act=error');
@@ -214,9 +223,9 @@ class tl_titelnormen_categories extends Backend
 		$this->createInitialVersion('tl_titelnormen_categories', $intId);
 		
 		// Trigger the save_callback
-		if (is_array($GLOBALS['TL_DCA']['tl_titelnormen_categories']['fields']['active']['save_callback']))
+		if (is_array($GLOBALS['TL_DCA']['tl_titelnormen_categories']['fields']['published']['save_callback']))
 		{
-			foreach ($GLOBALS['TL_DCA']['tl_titelnormen_categories']['fields']['active']['save_callback'] as $callback)
+			foreach ($GLOBALS['TL_DCA']['tl_titelnormen_categories']['fields']['published']['save_callback'] as $callback)
 			{
 				$this->import($callback[0]);
 				$blnPublished = $this->$callback[0]->$callback[1]($blnPublished, $this);
@@ -224,7 +233,7 @@ class tl_titelnormen_categories extends Backend
 		}
 		
 		// Update the database
-		$this->Database->prepare("UPDATE tl_titelnormen_categories SET tstamp=". time() .", active='" . ($blnPublished ? '' : '1') . "' WHERE id=?")
+		$this->Database->prepare("UPDATE tl_titelnormen_categories SET tstamp=". time() .", published='" . ($blnPublished ? '' : '1') . "' WHERE id=?")
 		               ->execute($intId);
 		$this->createNewVersion('tl_titelnormen_categories', $intId);
 	}

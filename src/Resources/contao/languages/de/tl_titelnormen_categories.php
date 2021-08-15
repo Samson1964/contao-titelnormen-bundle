@@ -3,41 +3,33 @@
 /**
  * Backend-Modul: Übersetzungen im Eingabeformular
  */
-$GLOBALS["TL_LANG"]["tl_titelnormen_categories"]["id"][0] = "ID";
-$GLOBALS["TL_LANG"]["tl_titelnormen_categories"]["id"][1] = "ID dieser Kategorie";
+$GLOBALS['TL_LANG']['tl_titelnormen_categories']['name_legend'] = 'Titel';
 
-$GLOBALS["TL_LANG"]["tl_titelnormen_categories"]["tstamp"][0] = "Letzte Änderung";
-$GLOBALS["TL_LANG"]["tl_titelnormen_categories"]["tstamp"][1] = "Zeitstempel der letzten Änderung";
+$GLOBALS['TL_LANG']['tl_titelnormen_categories']['category'] = array ('Kategoriename', 'Name der Kategorie');
 
-$GLOBALS["TL_LANG"]["tl_titelnormen_categories"]["name_legend"] = "Titel";
+$GLOBALS['TL_LANG']['tl_titelnormen_categories']['active_legend'] = 'Aktivierung';
 
-$GLOBALS["TL_LANG"]["tl_titelnormen_categories"]["category"] = array ('Kategoriename', 'Name der Kategorie');
-
-$GLOBALS["TL_LANG"]["tl_titelnormen_categories"]["active_legend"] = "Aktivierung";
-
-$GLOBALS["TL_LANG"]["tl_titelnormen_categories"]["active"] = array('Aktiv', 'Kategorie aktivieren');
+$GLOBALS['TL_LANG']['tl_titelnormen_categories']['active'] = array('Aktiv', 'Kategorie aktivieren');
 
 
 /**
  * Buttons für Operationen
  */
 
-$GLOBALS['TL_LANG']['tl_titelnormen_categories']['titelnormen'] = array('titelnormen', 'titelnormen bearbeiten');
+$GLOBALS['TL_LANG']['tl_titelnormen_categories']['titelnormen'] = array('Spieler verwalten', 'Spieler verwalten');
 
-$GLOBALS['TL_LANG']['tl_titelnormen_categories']['new'][0] = "Neue Kategorie";
-$GLOBALS['TL_LANG']['tl_titelnormen_categories']['new'][1] = "Neue Kategorie anlegen";
+$GLOBALS['TL_LANG']['tl_titelnormen_categories']['new'] = array('Neuer Titel', 'Neuen Titel anlegen');
+$GLOBALS['TL_LANG']['tl_titelnormen_categories']['edit'] = array('Titel bearbeiten', 'Titel %s bearbeiten');
+$GLOBALS['TL_LANG']['tl_titelnormen_categories']['copy'] = array('Titel kopieren', 'Titel %s kopieren');
+$GLOBALS['TL_LANG']['tl_titelnormen_categories']['delete'] = array('Titel löschen', 'Titel %s löschen');
+$GLOBALS['TL_LANG']['tl_titelnormen_categories']['toggle'] = array('Titel aktivieren/deaktivieren', 'Titel %s aktivieren/deaktivieren');
+$GLOBALS['TL_LANG']['tl_titelnormen_categories']['show'] = array('Titeldetails anzeigen', 'Details des Titels %s anzeigen');
 
-$GLOBALS['TL_LANG']['tl_titelnormen_categories']['edit'][0] = "Kategorie bearbeiten";
-$GLOBALS['TL_LANG']['tl_titelnormen_categories']['edit'][1] = "Kategorie %s bearbeiten";
+$GLOBALS['TL_LANG']['tl_titelnormen_categories']['sorting'] = array('Sortierung', 'Je kleiner die Zahl ist, desto höherwertiger ist der Titel.');
 
-$GLOBALS['TL_LANG']['tl_titelnormen_categories']['copy'][0] = "Kategorie kopieren";
-$GLOBALS['TL_LANG']['tl_titelnormen_categories']['copy'][1] = "Kategorie %s kopieren";
+$GLOBALS['TL_LANG']['tl_titelnormen_categories']['name_legend'] = 'Titel';
+$GLOBALS['TL_LANG']['tl_titelnormen_categories']['name'] = array('Name', 'Name des Titels');
+$GLOBALS['TL_LANG']['tl_titelnormen_categories']['kurzname'] = array('Kurzzeichen', 'Kurzzeichen des Titels');
 
-$GLOBALS['TL_LANG']['tl_titelnormen_categories']['delete'][0] = "Kategorie löschen";
-$GLOBALS['TL_LANG']['tl_titelnormen_categories']['delete'][1] = "Kategorie %s löschen";
-
-$GLOBALS['TL_LANG']['tl_titelnormen_categories']['toggle'][0] = "Kategorie aktivieren/deaktivieren";
-$GLOBALS['TL_LANG']['tl_titelnormen_categories']['toggle'][1] = "Kategorie %s aktivieren/deaktivieren";
-
-$GLOBALS['TL_LANG']['tl_titelnormen_categories']['show'][0] = "Kategoriedetails anzeigen";
-$GLOBALS['TL_LANG']['tl_titelnormen_categories']['show'][1] = "Details der Kategorie %s anzeigen";
+$GLOBALS['TL_LANG']['tl_titelnormen_categories']['publish_legend'] = 'Veröffentlichung';
+$GLOBALS['TL_LANG']['tl_titelnormen_categories']['published'] = array('Veröffentlichen', 'Aktivieren oder deaktivieren Sie hier die Veröffentlichung des Titels.');

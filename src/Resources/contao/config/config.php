@@ -1,7 +1,7 @@
 <?php
 
 $GLOBALS['BE_MOD']['content']['titelnormen'] = array(
-	'tables'      => array('tl_titelnormen', 'tl_titelnormen_items'),
+	'tables'      => array('tl_titelnormen', 'tl_titelnormen_items', 'tl_titelnormen_categories'),
 	'icon'        => 'bundles/contaotitelnormen/images/icon.png',
 );
 
