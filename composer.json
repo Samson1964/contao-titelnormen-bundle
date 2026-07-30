@@ -1,7 +1,15 @@
 {
     "name": "schachbulle/contao-titelnormen-bundle",
     "type": "contao-bundle",
-    "description": "Titel und Normen verwalten für Contao 4",
+    "description": "Verwaltet Titel und Titelnormen samt der zuständigen Wertungsreferenten.",
+    "keywords": [
+        "contao",
+        "schach",
+        "titel",
+        "normen",
+        "dsb"
+    ],
+    "homepage": "https://github.com/Samson1964/contao-titelnormen-bundle",
     "license": "LGPL-3.0-or-later",
     "authors": [
         {
