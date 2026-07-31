@@ -1,0 +1,13 @@
+# Quelle fuer die Metadaten im Contao Manager (contao/package-metadata).
+# Aenderungen hier werden von Claude in den Fork uebertragen.
+# Der englische Block wird beim Abgleich ergaenzt, falls er fehlt.
+
+de:
+    title: Titel und Normen
+    description: >
+        Verwaltet Titel und Titelnormen samt der zuständigen Wertungsreferenten.
+    keywords:
+        - Schach
+        - Titel
+        - Normen
+        - DSB
